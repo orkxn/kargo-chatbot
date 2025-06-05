@@ -6,7 +6,6 @@ load_dotenv()
 
 AFTERSHIP_API_KEY = os.getenv("AFTERSHIP_API_KEY")
 
-print("API Key:", AFTERSHIP_API_KEY)
 
 headers = {
     "aftership-api-key": AFTERSHIP_API_KEY,
