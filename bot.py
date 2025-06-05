@@ -1,25 +1,30 @@
-from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
-from tracker import get_tracking_info
 import os
 from dotenv import load_dotenv
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
+from tracker import track_package
 
+# .env dosyasından TELEGRAM token'ını al
 load_dotenv()
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Merhaba! Takip numaranızı yazın, size kargo durumunuzu söyleyeyim 📦")
+# /start komutu çalıştığında botun vereceği yanıt
+async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("👋 Merhaba! Takip numaranı gönder, kargonun durumunu söyleyeyim.")
 
+# Kullanıcı mesaj gönderdiğinde (takip numarası) çalışacak fonksiyon
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     tracking_number = update.message.text.strip()
-    result = get_tracking_info(tracking_number)
+    result = track_package(tracking_number)
     await update.message.reply_text(result)
 
+# Botu başlatan ana fonksiyon
 def start_bot():
-    app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
+    app = ApplicationBuilder().token(TELEGRAM_BOT_TOKEN).build()
 
-    app.add_handler(CommandHandler("start", start))
+    # Komutlar ve mesajlar için handler'lar
+    app.add_handler(CommandHandler("start", start_command))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
-    print("🤖 Bot çalışıyor...")
+    print("🤖 Bot çalışıyor... Telegram'dan bir şeyler gönder :)")
     app.run_polling()
