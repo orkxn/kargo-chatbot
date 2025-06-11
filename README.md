@@ -11,7 +11,7 @@ A Telegram bot that allows users to track package deliveries using tracking numb
 - Automatically detect courier using tracking number
 - Retrieve current delivery status and estimated delivery date
 - Multi-language interface
-- Admin panel with basic bot info and log export
+- Admin panel with basic api & bot info and log export
 
 ## 🔧 Setup Instructions
 
@@ -35,6 +35,7 @@ Create a `.env` file in the root directory and add your Telegram Bot Token and A
 ```
 TELEGRAM_BOT_TOKEN=your_telegram_bot_token
 AFTERSHIP_API_KEY=your_aftership_api_key
+ADMIN_ID=your_telegram_id
 ```
 
 ### 4. Run the Bot
