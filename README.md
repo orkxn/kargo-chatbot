@@ -18,8 +18,8 @@ A Telegram bot that allows users to track package deliveries using tracking numb
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/telegram-package-tracker.git
-cd telegram-package-tracker
+git clone https://github.com/orkxn/kargo-chatbot.git
+cd kargo-chatbot
 ```
 
 ### 2. Install Dependencies
